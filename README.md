@@ -1,0 +1,1 @@
+GoodSign.NetStandard
