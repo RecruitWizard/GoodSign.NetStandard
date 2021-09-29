@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package>
+  <metadata>
+    <id>GoodSign.NetStandard</id>
+    <version>0.0.0.0</version>
+    <title>GoodSign.NetStandard</title>
+    <authors>Wizardsoft</authors>
+    <owners>Wizardsoft</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <license type="expression">Apache-2.0</license>
+    <projectUrl>https://github.com/Wizardsoft/GoodSign.NetStandard</projectUrl>
+    <description>Allows you to programatically interface with the GoodSign.io API. API Docs here: https://goodsign.io/api/help</description>
+    <releaseNotes></releaseNotes>
+    <copyright>Copyright Wizardsoft 2021</copyright>
+    <dependencies>
+        <group targetFramework=".NETStandard2.0">
+          <dependency id="RestSharp" version="106.12.0.0" />
+          <dependency id="RestSharp.Serializers.NewtensoftJson" version="106.12.0.0" />
+          <dependency id="Newtonsoft.Json" version="13.0.1.0" />
+        </group>
+    </dependencies> 
+  </metadata>
+</package>

@@ -1,0 +1,46 @@
+name: Build & Test
+
+on:
+  push:
+    branches:    
+      - '**' # matches every branch  
+  workflow_dispatch:      
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        token: ${{ secrets.WizardsoftGitHubToken }}
+        fetch-depth: 0
+        submodules: 'recursive'
+        
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 5.0.x
+        
+    - name: Install GitVersion
+      uses: gittools/actions/gitversion/setup@v0.9.7
+      with:
+        versionSpec: '5.x'
+        
+    - name: Display GitVersion config
+      id:   gitversion
+      uses: gittools/actions/gitversion/execute@v0.9.7
+      with:
+        useConfigFile: true
+        configFilePath: GitVersion.yml  
+
+    - name: Display GitVersion outputs
+      run: |
+        echo "FullSemVer: ${{ steps.gitversion.outputs.fullSemVer }}"
+        echo "InformationalVersion: ${{ steps.gitversion.outputs.informationalVersion }}"        
+        
+    - name: Restore dependencies
+      run: dotnet restore src/GoodSign.NetStandard.sln
+      
+    - name: Build
+      run: dotnet build src/GoodSign.NetStandard.sln --no-restore
