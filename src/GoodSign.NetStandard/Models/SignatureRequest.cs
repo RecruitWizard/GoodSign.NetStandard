@@ -38,6 +38,9 @@ namespace GoodSign.NetStandard.Models
 
         [JsonProperty("email_fromname")]
         public string EmailFromName { get; set; }
+
+        [JsonProperty("send_in_order")]
+        public bool SendInOrder { get; set; }
     }
 
     public class Signer
@@ -50,5 +53,8 @@ namespace GoodSign.NetStandard.Models
 
         [JsonProperty("email")]
         public string Email { get; set; }
+
+        [JsonProperty("sort_order")]
+        public int SortOrder { get; set; }
     }
 }
