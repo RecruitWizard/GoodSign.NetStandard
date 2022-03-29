@@ -12,6 +12,6 @@ namespace GoodSign.NetStandard.Models
         [JsonProperty("status")]
         public string Status { get; set; }
         [JsonProperty("istemplate")]
-        public bool IsTemplate? { get; set; }
+        public bool? IsTemplate { get; set; }
     }
 }
