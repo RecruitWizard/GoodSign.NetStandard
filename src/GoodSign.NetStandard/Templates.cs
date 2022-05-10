@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
+using RestSharp.Serializers.NewtonsoftJson;
 
 namespace GoodSign.NetStandard
 {
@@ -47,7 +48,7 @@ namespace GoodSign.NetStandard
             request.AddHeader("Accept", "application/json");
             request.AddHeader("Authorization", $"Bearer {Configuration.ApiKey}");
 
-            var response = client.Get(request);
+            var response = client.GetAsync(request).Result;
 
             if (response.StatusCode == HttpStatusCode.OK)
             {
@@ -75,7 +76,7 @@ namespace GoodSign.NetStandard
             request.AddHeader("Accept", "application/json");
             request.AddHeader("Authorization", $"Bearer {Configuration.ApiKey}");
 
-            var response = client.Get(request);
+            var response = client.GetAsync(request).Result;
 
             if (response.StatusCode == HttpStatusCode.OK)
             {
@@ -123,7 +124,7 @@ namespace GoodSign.NetStandard
 
             request.AddHeader("Authorization", $"Bearer {Configuration.ApiKey}");
 
-            var response = client.DownloadData(request);
+            var response = client.DownloadDataAsync(request).Result;
 
             return response;
         }
@@ -131,16 +132,16 @@ namespace GoodSign.NetStandard
         public SignatureResponse SendTemplate(SignatureRequest signatureRequest)
         {
             var client = new RestClient(Configuration.BaseUrl);
+            client.UseNewtonsoftJson();
             var request = new RestRequest($"usetemplate");
 
-            request.JsonSerializer = new RestSharp.Serializers.NewtonsoftJson.JsonNetSerializer();
 
             request.AddHeader("Accept", "application/json");
             request.AddHeader("Authorization", $"Bearer {Configuration.ApiKey}");
 
             request.AddJsonBody(signatureRequest);
 
-            var response = client.Post(request);
+            var response = client.PostAsync(request).Result;
 
             if (response.StatusCode == HttpStatusCode.OK)
             {
@@ -202,16 +203,16 @@ namespace GoodSign.NetStandard
         public Document UploadPDF(string fileName, byte[] fileContents)
         {
             var client = new RestClient(Configuration.BaseUrl);
-            var request = new RestRequest($"uploadpdf");
+            client.UseNewtonsoftJson();
 
-            request.JsonSerializer = new RestSharp.Serializers.NewtonsoftJson.JsonNetSerializer();
+            var request = new RestRequest($"uploadpdf");
 
             request.AddHeader("Accept", "application/json");
             request.AddHeader("Authorization", $"Bearer {Configuration.ApiKey}");
 
             request.AddFile("file", fileContents, fileName);
 
-            var response = client.Post(request);
+            var response = client.PostAsync(request).Result;
 
             if (response.StatusCode == HttpStatusCode.OK)
             {
