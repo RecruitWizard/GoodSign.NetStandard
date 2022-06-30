@@ -30,6 +30,6 @@ namespace GoodSign.NetStandard.Models
         public string Warnings { get; set; }
 
         [JsonProperty("credit")]
-        public int RemainingCredits { get; set; }
+        public decimal RemainingCredits { get; set; }
     }
 }
