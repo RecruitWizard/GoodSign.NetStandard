@@ -157,11 +157,11 @@ namespace GoodSign.NetStandard
             }
         }
 
-        public SendReminderResponse SendReminder(Guid documentId)
+        public SendReminderResponse SendReminderToAllUnsigned(Guid documentId)
         {
             using (var httpClient = new HttpClient())
             {
-                using (var request = new HttpRequestMessage(new HttpMethod("POST"), $"{Configuration.BaseUrl}/document/{documentId}/remind"))
+                using (var request = new HttpRequestMessage(new HttpMethod("POST"), $"{Configuration.BaseUrl}/document/{documentId}/remindall"))
                 {
                     request.Headers.TryAddWithoutValidation("Authorization", $"Bearer {Configuration.ApiKey}");
 
