@@ -1,6 +1,7 @@
 ﻿using GoodSign.NetStandard.Models;
 using Newtonsoft.Json;
 using RestSharp;
+using RestSharp.Serializers.NewtonsoftJson;
 using System;
 using System.Collections.Generic;
 using System.Net;
@@ -41,7 +42,7 @@ namespace GoodSign.NetStandard
         /// <returns></returns>
         public List<Template> GetTemplates()
         {
-            var client = new RestClient(Configuration.BaseUrl);
+            var client = new RestClient(Configuration.BaseUrl, configureSerialization: s => s.UseNewtonsoftJson());
             var request = new RestRequest("templates");
 
             request.AddHeader("Accept", "application/json");
@@ -69,7 +70,7 @@ namespace GoodSign.NetStandard
 
         public GetDocumentResponse GetDocument(Guid documentId)
         {
-            var client = new RestClient(Configuration.BaseUrl);
+            var client = new RestClient(Configuration.BaseUrl, configureSerialization: s => s.UseNewtonsoftJson());
             var request = new RestRequest($"document\\{documentId}");
 
             request.AddHeader("Accept", "application/json");
@@ -130,9 +131,8 @@ namespace GoodSign.NetStandard
 
         public SignatureResponse SendTemplate(SignatureRequest signatureRequest)
         {
-            var client = new RestClient(Configuration.BaseUrl);
+            var client = new RestClient(Configuration.BaseUrl, configureSerialization: s => s.UseNewtonsoftJson());
             var request = new RestRequest($"usetemplate");
-
 
             request.AddHeader("Accept", "application/json");
             request.AddHeader("Authorization", $"Bearer {Configuration.ApiKey}");
@@ -200,7 +200,7 @@ namespace GoodSign.NetStandard
 
         public Document UploadPDF(string fileName, byte[] fileContents)
         {
-            var client = new RestClient(Configuration.BaseUrl);
+            var client = new RestClient(Configuration.BaseUrl, configureSerialization: s => s.UseNewtonsoftJson());
 
             var request = new RestRequest($"uploadpdf");
 
