@@ -5,7 +5,6 @@ using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
-using RestSharp.Serializers.NewtonsoftJson;
 
 namespace GoodSign.NetStandard
 {
@@ -132,7 +131,6 @@ namespace GoodSign.NetStandard
         public SignatureResponse SendTemplate(SignatureRequest signatureRequest)
         {
             var client = new RestClient(Configuration.BaseUrl);
-            client.UseNewtonsoftJson();
             var request = new RestRequest($"usetemplate");
 
 
@@ -203,7 +201,6 @@ namespace GoodSign.NetStandard
         public Document UploadPDF(string fileName, byte[] fileContents)
         {
             var client = new RestClient(Configuration.BaseUrl);
-            client.UseNewtonsoftJson();
 
             var request = new RestRequest($"uploadpdf");
 

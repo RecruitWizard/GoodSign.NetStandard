@@ -11,12 +11,11 @@
     <projectUrl>https://github.com/Wizardsoft/GoodSign.NetStandard</projectUrl>
     <description>Allows you to programatically interface with the GoodSign.io API. API Docs here: https://goodsign.io/api/help</description>
     <releaseNotes></releaseNotes>
-    <copyright>Copyright Wizardsoft 2022</copyright>
+    <copyright>Copyright Wizardsoft 2023</copyright>
     <dependencies>
         <group targetFramework=".NETStandard2.0">
-          <dependency id="RestSharp" version="107.3.0.0" />
-          <dependency id="RestSharp.Serializers.NewtonsoftJson" version="107.3.0.0" />
-          <dependency id="Newtonsoft.Json" version="13.0.1.0" />
+          <dependency id="RestSharp" version="110.2.0.0" />
+          <dependency id="Newtonsoft.Json" version="13.0.3.0" />
         </group>
     </dependencies> 
   </metadata>
