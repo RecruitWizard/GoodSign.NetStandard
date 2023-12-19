@@ -45,13 +45,13 @@ jobs:
         echo "InformationalVersion: ${{ steps.gitversion.outputs.informationalVersion }}"
         
     - name: Set VERSION variable from tag
-      run: echo "VERSION=${{ steps.gitversion.outputs.fullSemVer }}" >> $GITHUB_ENV        
+      run: echo "VERSION=${{ steps.gitversion.outputs.GITVERSION_NUGETVERSION }}" >> $GITHUB_ENV        
         
     - name: Restore dependencies
       run: dotnet restore src/GoodSign.NetStandard.sln
       
     - name: Build
-      run: dotnet build src/GoodSign.NetStandard.sln --configuration Release /p:Version=${{ steps.gitversion.outputs.GITVERSION_NUGETVERSION }} --no-restore
+      run: dotnet build src/GoodSign.NetStandard.sln --configuration Release /p:Version=${VERSION} --no-restore
 
     # create a NuGet package from files in the "reports" folder; create package in "packaging" folder
     - name: Pack
