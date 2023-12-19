@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFramework>netstandard2.1</TargetFramework>
     <UserSecretsId>50760eaf-0468-4b57-a8a4-6ac7114db439</UserSecretsId>
     <AssemblyName>GoodSign.NetStandard</AssemblyName>
     <RootNamespace>GoodSign.NetStandard</RootNamespace>
