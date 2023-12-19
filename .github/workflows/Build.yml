@@ -50,7 +50,7 @@ jobs:
 
     # create a NuGet package from files in the "reports" folder; create package in "packaging" folder
     - name: Pack
-      run: dotnet pack src/GoodSign.NetStandard/GoodSign.NetStandard.csproj -p:Version=${VERSION} --configuration Release --output packaging --IncludeReferencedProjects
+      run: dotnet pack src/GoodSign.NetStandard/GoodSign.NetStandard.csproj -p:Version=${VERSION} -p:IncludeReferencedProjects --configuration Release --output packaging 
         
     # Publish the NuGet package as an artifact, so they can be used in the following jobs
     - uses: actions/upload-artifact@v3
