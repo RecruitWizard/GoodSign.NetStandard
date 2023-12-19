@@ -2,6 +2,7 @@
 <package>
   <metadata>
     <id>GoodSign.NetStandard</id>
+    <version>0.0.0.0</version>
     <title>GoodSign.NetStandard</title>
     <authors>Recruit Wizard</authors>
     <owners>Recruit Wizard</owners>
