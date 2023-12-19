@@ -17,7 +17,7 @@ jobs:
         fetch-depth: 0
         submodules: 'recursive'
         
-    - name: Setup .NET
+    - name: Setup .NET 8
       uses: actions/setup-dotnet@v4
       with:
         dotnet-version: 8.0.x
@@ -44,3 +44,17 @@ jobs:
       
     - name: Build
       run: dotnet build src/GoodSign.NetStandard.sln --no-restore
+
+    # create a NuGet package from files in the "reports" folder; create package in "packaging" folder
+    - name: Create a NuGet package 🐙
+      uses: OctopusDeploy/create-nuget-package-action@v3
+      with:
+        package_id: 'GoodSign.NetStandard'
+        version: ${{ steps.gitversion.outputs.fullSemVer }}
+        output_folder: 'packaging'
+        base_path: src
+        files: |
+          GoodSign.NetStandard/*.csproj
+        nuspec_description: |
+          Allows you to programatically interface with the GoodSign.io API. API Docs here: https://goodsign.io/api/help
+        nuspec_authors: Recruit Wizard           
