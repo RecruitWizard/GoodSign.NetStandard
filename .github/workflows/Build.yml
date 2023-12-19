@@ -46,18 +46,8 @@ jobs:
       run: dotnet build src/GoodSign.NetStandard.sln --no-restore
 
     # create a NuGet package from files in the "reports" folder; create package in "packaging" folder
-    - name: Create a NuGet package 🐙
-      uses: OctopusDeploy/create-nuget-package-action@v3
-      with:
-        package_id: 'GoodSign.NetStandard'
-        version: ${{ steps.gitversion.outputs.fullSemVer }}
-        output_folder: 'packaging'
-        base_path: src
-        files: |
-          GoodSign.NetStandard/*.csproj
-        nuspec_description: |
-          Allows you to programatically interface with the GoodSign.io API. API Docs here: https://goodsign.io/api/help
-        nuspec_authors: Recruit Wizard
+    - name: Pack
+      run: dotnet pack ~/src/GoodSign.NetStandard/GoodSign.NetStandard.csproj -p:NuspecFile=~/src/GoodSign.NetStandard/GoodSign.NetStandard.nuspec -p:Version=${{ steps.gitversion.outputs.fullSemVer }}
         
     # Publish the NuGet package as an artifact, so they can be used in the following jobs
     - uses: actions/upload-artifact@v3
