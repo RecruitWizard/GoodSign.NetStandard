@@ -47,7 +47,7 @@ jobs:
 
     # create a NuGet package from files in the "reports" folder; create package in "packaging" folder
     - name: Pack
-      run: dotnet pack ~/src/GoodSign.NetStandard/GoodSign.NetStandard.csproj -p:NuspecFile=~/src/GoodSign.NetStandard/GoodSign.NetStandard.nuspec -p:Version=${{ steps.gitversion.outputs.fullSemVer }} --no-build --output .
+      run: dotnet pack src/GoodSign.NetStandard/GoodSign.NetStandard.csproj -p:NuspecFile=src/GoodSign.NetStandard/GoodSign.NetStandard.nuspec -p:Version=${{ steps.gitversion.outputs.fullSemVer }} --no-build --output .
         
     # Publish the NuGet package as an artifact, so they can be used in the following jobs
     - uses: actions/upload-artifact@v3
