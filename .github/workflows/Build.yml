@@ -57,4 +57,12 @@ jobs:
           GoodSign.NetStandard/*.csproj
         nuspec_description: |
           Allows you to programatically interface with the GoodSign.io API. API Docs here: https://goodsign.io/api/help
-        nuspec_authors: Recruit Wizard           
+        nuspec_authors: Recruit Wizard
+        
+    # Publish the NuGet package as an artifact, so they can be used in the following jobs
+    - uses: actions/upload-artifact@v3
+      with:
+        name: nuget
+        if-no-files-found: error
+        retention-days: 7
+        path: packaging/*.nupkg        
