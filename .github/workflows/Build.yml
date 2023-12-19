@@ -6,6 +6,11 @@ on:
       - '**' # matches every branch  
   workflow_dispatch:      
 
+env:
+  OCTOPUS_API_KEY: ${{ secrets.OCTOPUS_API_KEY }}
+  OCTOPUS_URL: ${{ secrets.OCTOPUS_SERVER_URL }}
+  OCTOPUS_SPACE: 'Recruit Wizard'
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -58,4 +63,10 @@ jobs:
         name: nuget
         if-no-files-found: error
         retention-days: 7
-        path: packaging/*.nupkg        
+        path: packaging/*.nupkg
+        
+    - name: Push a package to Octopus Deploy 🐙
+      uses: OctopusDeploy/push-package-action@v3
+      with:
+        packages: |
+          packaging/*.nupkg
