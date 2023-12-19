@@ -4,14 +4,14 @@
     <id>GoodSign.NetStandard</id>
     <version>0.0.0.0</version>
     <title>GoodSign.NetStandard</title>
-    <authors>Wizardsoft</authors>
-    <owners>Wizardsoft</owners>
+    <authors>Recruit Wizard</authors>
+    <owners>Recruit Wizard</owners>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <license type="expression">Apache-2.0</license>
-    <projectUrl>https://github.com/Wizardsoft/GoodSign.NetStandard</projectUrl>
+    <projectUrl>https://github.com/RecruitWizard/GoodSign.NetStandard</projectUrl>
     <description>Allows you to programatically interface with the GoodSign.io API. API Docs here: https://goodsign.io/api/help</description>
     <releaseNotes></releaseNotes>
-    <copyright>Copyright Wizardsoft 2023</copyright>
+    <copyright>Copyright Recruit Wizard 2023</copyright>
     <dependencies>
         <group targetFramework=".NETStandard2.0">
           <dependency id="RestSharp" version="110.2.0.0" />
