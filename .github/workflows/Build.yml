@@ -46,7 +46,7 @@ jobs:
       run: dotnet restore src/GoodSign.NetStandard.sln
       
     - name: Build
-      run: dotnet build src/GoodSign.NetStandard.sln --no-restore
+      run: dotnet build src/GoodSign.NetStandard.sln --configuration Release --no-restore
 
     # create a NuGet package from files in the "reports" folder; create package in "packaging" folder
     - name: Pack
