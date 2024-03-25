@@ -2,7 +2,7 @@
 <package>
   <metadata>
     <id>GoodSign.NetStandard</id>
-    <version>0.0.0.0</version>
+    <version>$version</version>
     <title>GoodSign.NetStandard</title>
     <authors>Recruit Wizard</authors>
     <owners>Recruit Wizard</owners>
@@ -11,7 +11,7 @@
     <projectUrl>https://github.com/RecruitWizard/GoodSign.NetStandard</projectUrl>
     <description>Allows you to programatically interface with the GoodSign.io API. API Docs here: https://goodsign.io/api/help</description>
     <releaseNotes></releaseNotes>
-    <copyright>Copyright Recruit Wizard 2023</copyright>
+    <copyright>Copyright Recruit Wizard 2024</copyright>
     <dependencies>
         <group targetFramework=".NETStandard2.1">
           <dependency id="RestSharp" version="110.2.0.0" />

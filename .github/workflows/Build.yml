@@ -28,13 +28,13 @@ jobs:
         dotnet-version: 8.0.x
         
     - name: Install GitVersion
-      uses: gittools/actions/gitversion/setup@v0.10.2
+      uses: gittools/actions/gitversion/setup@v1
       with:
         versionSpec: '5.x'
         
     - name: Display GitVersion config
       id:   gitversion
-      uses: gittools/actions/gitversion/execute@v0.10.2
+      uses: gittools/actions/gitversion/execute@v1
       with:
         useConfigFile: true
         configFilePath: GitVersion.yml  
@@ -45,7 +45,15 @@ jobs:
         echo "InformationalVersion: ${{ steps.gitversion.outputs.informationalVersion }}"
         
     - name: Set VERSION variable from tag
-      run: echo "VERSION=${{ env.NuGetVersionV2 }}" >> $GITHUB_ENV        
+      run: echo "VERSION=${{ env.NuGetVersionV2 }}" >> $GITHUB_ENV
+
+      - name: Find and Replace
+        uses: jacobtomlinson/gha-find-replace@v3
+        with:
+          find: "$version"
+          replace: ${{ env.NuGetVersionV2 }}
+          include: "src/GoodSign.NetStandard/GoodSign.NetStandard.nuspec"
+          regex: true              
         
     - name: Restore dependencies
       run: dotnet restore src/GoodSign.NetStandard.sln
