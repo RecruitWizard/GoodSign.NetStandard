@@ -48,7 +48,7 @@ jobs:
     - name: Set VERSION variable from tag
       run: echo "VERSION=${{ env.GitVersion_NuGetVersionV2 }}" >> $GITHUB_ENV
 
-    - name: Find and Replace
+    - name: Find and Replace Version in NuSpec
       uses: richardrigutins/replace-in-files@v2
       with:
         files: 'src/GoodSign.NetStandard/GoodSign.NetStandard.nuspec'
@@ -61,20 +61,35 @@ jobs:
     - name: Build
       run: dotnet build src/GoodSign.NetStandard.sln --configuration Release /p:Version=${VERSION} --no-restore
 
-    # create a NuGet package from files in the "reports" folder; create package in "packaging" folder
     - name: Pack
       run: dotnet pack src/GoodSign.NetStandard/GoodSign.NetStandard.csproj -p:PackageVersion=${VERSION} -p:IncludeReferencedProjects --configuration Release --output packaging 
-        
-    # Publish the NuGet package as an artifact, so they can be used in the following jobs
-    - uses: actions/upload-artifact@v3
-      with:
-        name: nuget
-        if-no-files-found: error
-        retention-days: 7
-        path: packaging/*.nupkg
-        
+               
     - name: Push a package to Octopus Deploy 🐙
       uses: OctopusDeploy/push-package-action@v3
       with:
         packages: |
           packaging/*.nupkg
+
+    - name: Push build information to Octopus Deploy 🐙
+      uses: xo-energy/action-octopus-build-information@v1.4.9
+      with:
+        octopus_api_key: ${{ secrets.OCTOPUS_API_KEY }}
+        octopus_server: ${{ secrets.OCTOPUS_SERVER_URL }}
+        octopus_project: goodsign-netstandard
+        output_path: octopus
+        push_package_ids: GoodSign.NetStandard
+        push_overwrite_mode: OverwriteExisting
+        push_version: ${{ steps.gitversion.outputs.fullSemVer }}
+
+    - name: Create a release in Octopus Deploy
+      uses: OctopusDeploy/create-release-action@v3
+      with:
+        project: 'GoodSign.NetStandard'
+        package_version: ${{ steps.gitversion.outputs.fullSemVer }}
+        git_ref: ${{ github.ref }}
+
+    - name: Create a Release in GitHub
+      if: github.ref == 'refs/heads/main'
+      run: gh release create ${{ steps.gitversion.outputs.fullSemVer }} --target ${{ github.sha }} 
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}        
