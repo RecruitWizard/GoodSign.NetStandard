@@ -47,13 +47,13 @@ jobs:
     - name: Set VERSION variable from tag
       run: echo "VERSION=${{ env.NuGetVersionV2 }}" >> $GITHUB_ENV
 
-      - name: Find and Replace
-        uses: jacobtomlinson/gha-find-replace@v3
-        with:
-          find: "$version"
-          replace: ${{ env.NuGetVersionV2 }}
-          include: "src/GoodSign.NetStandard/GoodSign.NetStandard.nuspec"
-          regex: true              
+    - name: Find and Replace
+      uses: jacobtomlinson/gha-find-replace@v3
+      with:
+        find: "$version"
+        replace: ${{ env.NuGetVersionV2 }}
+        include: "src/GoodSign.NetStandard/GoodSign.NetStandard.nuspec"
+        regex: true              
         
     - name: Restore dependencies
       run: dotnet restore src/GoodSign.NetStandard.sln
