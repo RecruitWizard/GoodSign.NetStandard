@@ -79,17 +79,17 @@ jobs:
         output_path: octopus
         push_package_ids: GoodSign.NetStandard
         push_overwrite_mode: OverwriteExisting
-        push_version: ${{ steps.gitversion.outputs.fullSemVer }}
+        push_version: ${{ steps.gitversion.outputs.GitVersion_NuGetVersionV2 }}
 
     - name: Create a release in Octopus Deploy
       uses: OctopusDeploy/create-release-action@v3
       with:
         project: 'GoodSign.NetStandard'
-        package_version: ${{ steps.gitversion.outputs.fullSemVer }}
+        package_version: ${{ steps.gitversion.outputs.GitVersion_NuGetVersionV2 }}
         git_ref: ${{ github.ref }}
 
     - name: Create a Release in GitHub
       if: github.ref == 'refs/heads/main'
-      run: gh release create ${{ steps.gitversion.outputs.fullSemVer }} --target ${{ github.sha }} 
+      run: gh release create ${{ steps.gitversion.outputs.GitVersion_NuGetVersionV2 }} --target ${{ github.sha }} 
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}        
