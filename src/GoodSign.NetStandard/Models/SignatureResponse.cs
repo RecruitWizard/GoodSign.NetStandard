@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 
 namespace GoodSign.NetStandard.Models
 {
@@ -31,5 +32,18 @@ namespace GoodSign.NetStandard.Models
 
         [JsonProperty("credit")]
         public decimal RemainingCredits { get; set; }
+        
+        [JsonProperty("signing_links")]
+        public List<SigningLink> SigningLinks { get; set; }
+    }
+
+    public class SigningLink
+    {
+        [JsonProperty("name")]
+        public string Name { get; set; }
+        [JsonProperty("email")]
+        public string Email { get; set; }
+        [JsonProperty("link")]
+        public string Link { get; set; }
     }
 }

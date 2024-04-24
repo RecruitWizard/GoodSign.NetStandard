@@ -20,6 +20,9 @@ namespace GoodSign.NetStandard.Models
 
         [JsonProperty("webhook")]
         public string Webhook { get; set; }
+        
+        [JsonProperty("email_external")]
+        public bool SuppressGoodSignEmail { get; set; }
 
         [JsonProperty("signers")]
         public List<Signer> Signers { get; set; }
