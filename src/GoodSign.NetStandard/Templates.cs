@@ -224,5 +224,34 @@ namespace GoodSign.NetStandard
                 throw new Exception($"HttpStatusCode: {response.StatusCode} {response.Content}");
             }
         }
+        
+        public Document UploadAttachment(string mainDocumentId, string fileName, byte[] fileContents)
+        {
+            var client = new RestClient(Configuration.BaseUrl, configureSerialization: s => s.UseNewtonsoftJson());
+
+            var request = new RestRequest($"uploadpdf");
+
+            request.AddHeader("Accept", "application/json");
+            request.AddHeader("Authorization", $"Bearer {Configuration.ApiKey}");
+            
+            request.AddFile("file", fileContents, fileName);
+            request.AddParameter("uuid", mainDocumentId);
+            request.AddParameter("attachment", "true");
+
+            var response = client.PostAsync(request).Result;
+
+            if (response.StatusCode == HttpStatusCode.OK)
+            {
+                var content = response.Content;
+
+                var results = JsonConvert.DeserializeObject<Document>(content);
+
+                return results;
+            }
+            else
+            {
+                throw new Exception($"HttpStatusCode: {response.StatusCode} {response.Content}");
+            }
+        }
     }
 }
