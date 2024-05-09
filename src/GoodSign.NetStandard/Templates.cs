@@ -225,7 +225,7 @@ namespace GoodSign.NetStandard
             }
         }
         
-        public Document UploadAttachment(string mainDocumentId, string fileName, byte[] fileContents)
+        public Document UploadAttachment(Guid mainDocumentId, string fileName, byte[] fileContents)
         {
             var client = new RestClient(Configuration.BaseUrl, configureSerialization: s => s.UseNewtonsoftJson());
 
