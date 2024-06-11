@@ -14,8 +14,8 @@
     <copyright>Copyright Recruit Wizard 2024</copyright>
     <dependencies>
         <group targetFramework=".NETStandard2.1">
-          <dependency id="RestSharp" version="110.2.0.0" />
-          <dependency id="RestSharp.Serializers.NewtonsoftJson" version="110.2.0.0" />
+          <dependency id="RestSharp" version="111.2.0.0" />
+          <dependency id="RestSharp.Serializers.NewtonsoftJson" version="111.2.0.0" />
           <dependency id="Newtonsoft.Json" version="13.0.3.0" />
         </group>
     </dependencies> 
