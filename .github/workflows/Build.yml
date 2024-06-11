@@ -65,7 +65,7 @@ jobs:
       run: dotnet pack src/GoodSign.NetStandard/GoodSign.NetStandard.csproj -p:PackageVersion=${VERSION} -p:IncludeReferencedProjects --configuration Release --output packaging 
                
     - name: Push - Feedz.io (Prerelease Only)
-      if: github.ref !== 'refs/heads/main'
+      if: github.ref != 'refs/heads/main'
       run: dotnet nuget push --source https://f.feedz.io/recruitwizard/dependencies/nuget/index.json --api-key ${{ secrets.FEEDZ_IO_APIKEY }} packaging/*.nupkg
 
     - name: Push - Nuget.Org (Main Only)
