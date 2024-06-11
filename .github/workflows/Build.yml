@@ -6,11 +6,6 @@ on:
       - '**' # matches every branch  
   workflow_dispatch:      
 
-env:
-  OCTOPUS_API_KEY: ${{ secrets.OCTOPUS_API_KEY }}
-  OCTOPUS_URL: ${{ secrets.OCTOPUS_SERVER_URL }}
-  OCTOPUS_SPACE: 'Recruit Wizard'
-
 jobs:
   build:
     runs-on: ubuntu-latest
