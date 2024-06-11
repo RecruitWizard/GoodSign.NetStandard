@@ -64,29 +64,13 @@ jobs:
     - name: Pack
       run: dotnet pack src/GoodSign.NetStandard/GoodSign.NetStandard.csproj -p:PackageVersion=${VERSION} -p:IncludeReferencedProjects --configuration Release --output packaging 
                
-    - name: Push a package to Octopus Deploy 🐙
-      uses: OctopusDeploy/push-package-action@v3
-      with:
-        packages: |
-          packaging/*.nupkg
+    - name: Push - Feedz.io (Prerelease Only)
+      if: github.ref !== 'refs/heads/main'
+      run: dotnet nuget push --source https://f.feedz.io/recruitwizard/dependencies/nuget/index.json --api-key ${{ secrets.FEEDZ_IO_APIKEY }} packaging/*.nupkg
 
-    - name: Push build information to Octopus Deploy 🐙
-      uses: xo-energy/action-octopus-build-information@v1.4.9
-      with:
-        octopus_api_key: ${{ secrets.OCTOPUS_API_KEY }}
-        octopus_server: ${{ secrets.OCTOPUS_SERVER_URL }}
-        octopus_project: goodsign-netstandard
-        output_path: octopus
-        push_package_ids: GoodSign.NetStandard
-        push_overwrite_mode: OverwriteExisting
-        push_version: ${{ steps.gitversion.outputs.GitVersion_NuGetVersionV2 }}
-
-    - name: Create a release in Octopus Deploy
-      uses: OctopusDeploy/create-release-action@v3
-      with:
-        project: 'GoodSign.NetStandard'
-        package_version: ${{ steps.gitversion.outputs.GitVersion_NuGetVersionV2 }}
-        git_ref: ${{ github.ref }}
+    - name: Push - Nuget.Org (Main Only)
+      if: github.ref == 'refs/heads/main'
+      run: dotnet nuget push --source https://api.nuget.org/v3/index.json --api-key ${{ secrets.NUGET_API_KEY }} packaging/*.nupkg
 
     - name: Create a Release in GitHub
       if: github.ref == 'refs/heads/main'
