@@ -129,7 +129,7 @@ namespace GoodSign.NetStandard
             return response;
         }
 
-        public byte[] DownloadPreviewFile(Guid mainDocumentId)
+        public byte[] GetIncompleteDocumentDownload(Guid mainDocumentId)
         {
             var client = new RestClient(Configuration.BaseUrl);
 
