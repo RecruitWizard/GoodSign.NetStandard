@@ -129,6 +129,17 @@ namespace GoodSign.NetStandard
             return response;
         }
 
+        public byte[] DownloadPreviewFile(Guid mainDocumentId)
+        {
+            var client = new RestClient(Configuration.BaseUrl);
+
+            var request = new RestRequest($"download/{mainDocumentId}?force=true&index=0", Method.Get);
+            request.AddHeader("Authorization", $"Bearer {Configuration.ApiKey}");
+
+            var data = client.DownloadData(request);
+            return data;
+        }
+
         public SignatureResponse SendTemplate(SignatureRequest signatureRequest)
         {
             var client = new RestClient(Configuration.BaseUrl, configureSerialization: s => s.UseNewtonsoftJson());
