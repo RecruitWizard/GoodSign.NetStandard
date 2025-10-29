@@ -45,5 +45,7 @@ namespace GoodSign.NetStandard.Models
         public string Email { get; set; }
         [JsonProperty("link")]
         public string Link { get; set; }
+        [JsonProperty("key")]
+        public string Key { get; set; }        
     }
 }
