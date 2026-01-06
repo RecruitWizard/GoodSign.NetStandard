@@ -264,5 +264,19 @@ namespace GoodSign.NetStandard
                 throw new Exception($"HttpStatusCode: {response.StatusCode} {response.Content}");
             }
         }
+        
+        public bool DeleteDocument(Guid documentId)
+        {
+            var client = new RestClient(Configuration.BaseUrl, configureSerialization: s => s.UseNewtonsoftJson());
+
+            var request = new RestRequest($"document/{documentId}/delete");
+
+            request.AddHeader("Accept", "application/json");
+            request.AddHeader("Authorization", $"Bearer {Configuration.ApiKey}");
+            
+            var response = client.PostAsync(request).Result;
+
+            return response.StatusCode == HttpStatusCode.OK ? true : throw new Exception($"HttpStatusCode: {response.StatusCode} {response.Content}");
+        }
     }
 }
